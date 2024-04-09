@@ -144,11 +144,23 @@ client.on("interactionCreate", async (interaction) => {
 			await interaction.reply("Error while generating random number");
 		}
 	}
+
+  if (interaction.commandName === "tic-tac-toe") {
+    try {
+      await interaction.reply("Error while generating random number");
+    } catch (error) {
+      console.log(error);
+    }
+  }
 });
 
 client.login(process.env.token);
 
 const commands = [
+  {
+    name: "tic-tac-toe",
+    description: "Play a game of tic tac toe!"
+  },
 	{
 		name: "weather",
 		description: "Current temp and wind for Stord",
