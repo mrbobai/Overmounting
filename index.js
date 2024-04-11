@@ -13,6 +13,18 @@ const client = new Client({
 client.on("ready", async () => {
 	console.log(`I am online and ready as ${client.user.username}`);
 	await regAllCmd();
+
+  // Get the bot-testing channel by name
+  const botTestingChannel = client.channels.cache.find(channel => channel.name === 'bot-testing');
+
+  // Check if the channel is found
+  if (botTestingChannel) {
+    // Send a message in the bot-testing channel
+    botTestingChannel.send('I am now in use!');
+    console.log('Message sent to bot-testing channel.');
+  } else {
+    console.error('Bot-testing channel not found!');
+  }
 });
 
 async function regAllCmd() {
@@ -144,10 +156,10 @@ client.on("interactionCreate", async (interaction) => {
 			await interaction.reply("Error while generating random number");
 		}
 	}
-
   if (interaction.commandName === "tic-tac-toe") {
-    try {
-      await interaction.reply("Error while generating random number");
+  // use colloum and rows update_grid(0, 0, 'X') update_grid(1, 1, 'O') update_grid(2, 2, 'X') 
+    try {      
+      await interaction.replay()
     } catch (error) {
       console.log(error);
     }
@@ -156,39 +168,109 @@ client.on("interactionCreate", async (interaction) => {
 
 client.login(process.env.token);
 
+/*
+// Subcommand: This option allows you to create subcommands within a command. It enables you to organize commands hierarchically.
+Example:
+
+json
+Copy code
+{
+    "type": 1,
+    "name": "subcommand_name",
+    "description": "Description of the subcommand",
+    "options": [
+        // Options for the subcommand
+    ]
+}
+Subcommand Group: This option allows you to group related subcommands together. It helps in organizing commands when you have multiple related functionalities.
+Example:
+
+json
+Copy code
+{
+    "type": 2,
+    "name": "group_name",
+    "description": "Description of the subcommand group",
+    "options": [
+        // Subcommands for the group
+    ]
+}
+String: Represents a basic text input.
+
+json
+Copy code
+{
+    "type": 3,
+    "name": "string_name",
+    "description": "Description of the string input",
+    "required": true
+}
+Integer: Represents a whole number input.
+
+json
+Copy code
+{
+    "type": 4,
+    "name": "integer_name",
+    "description": "Description of the integer input",
+    "required": true
+}
+Boolean: Represents a true/false input.
+
+json
+Copy code
+{
+    "type": 5,
+    "name": "boolean_name",
+    "description": "Description of the boolean input",
+    "required": true
+}
+*/
+
+// no spaces in name:
+
 const commands = [
   {
     name: "tic-tac-toe",
-    description: "Play a game of tic tac toe!"
+    description: "play a game of tic tac toe",
+    options: [
+      {
+        type: 5,
+        name: "start-game",
+        description: "Do you want to start a new game?",
+        required: false,
+      },
+    ],
   },
-	{
-		name: "weather",
-		description: "Current temp and wind for Stord",
-	},
-	{
-		name: "coin-flip",
-		description: "flips a coin",
-	},
-	{
-		name: "random-number",
-		description: "random number min-max",
-		options: [
-			{
-				type: 3,
-				name: "min",
-				description: "The minimum value",
-				required: true,
-			},
-			{
-				type: 3,
-				name: "max",
-				description: "The maximum value",
-				required: true,
-			},
-		],
-	},
-	{
-		name: "help",
-		description: "says all the commands",
-	},
+  {
+    name: "weather",
+    description: "Current temp and wind for Stord",
+  },
+  {
+    name: "coin-flip",
+    description: "flips a coin",
+  },
+  {
+    name: "random-number",
+    description: "random number min-max",
+    options: [
+      {
+        type: 3,
+        name: "min",
+        description: "The minimum value",
+        required: true,
+      },
+      {
+        type: 3,
+        name: "max",
+        description: "The maximum value",
+        required: true,
+      },
+    ],
+  },
+  {
+    name: "help",
+    description: "says all the commands",
+  },
 ];
+
