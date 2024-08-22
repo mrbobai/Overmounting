@@ -18,7 +18,9 @@ for (const folder of commandFolders) {
     if ("data" in command && "execute" in command) {
       client.commands.set(command.data.name, command);
     } else {
-      console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
+      console.log(
+        `[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`
+      );
     }
   }
 }
@@ -42,9 +44,15 @@ client.on(Events.InteractionCreate, async interaction => {
   } catch (error) {
     console.error(error);
     if (interaction.replied || interaction.deferred) {
-      await interaction.followUp({ content: "There was an error while executing this command!", ephemeral: true });
+      await interaction.followUp({
+        content: "There was an error while executing this command!",
+        ephemeral: true
+      });
     } else {
-      await interaction.reply({ content: "There was an error while executing this command!", ephemeral: true });
+      await interaction.reply({
+        content: "There was an error while executing this command!",
+        ephemeral: true
+      });
     }
   }
 });

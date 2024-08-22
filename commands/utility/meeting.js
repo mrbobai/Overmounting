@@ -1,9 +1,10 @@
 const { SlashCommandBuilder, PermissionsBitField } = require("discord.js");
 
 module.exports = {
+  cooldown: 5,
   data: new SlashCommandBuilder()
     .setName("meeting")
-    .setDescription("Plan a meeting") 
+    .setDescription("Plan a meeting")
 
     .addNumberOption(option =>
       option.setName("hour")
